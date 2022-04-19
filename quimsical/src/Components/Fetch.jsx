@@ -8,7 +8,7 @@ export default function Fetch(props) {
     const category = useSelector(state => state.settings.question_category)
     const amount = useSelector(state => state.settings.question_amount)
     const type = useSelector(state => state.settings.question_type)
-    const indexOf = useSelector(state => state.index)
+    const questionIndex = useSelector(state => state.index)
 
     const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ export default function Fetch(props) {
             setLoading(false)
         })
 
-        if (indexOf > 0) {
+        if (questionIndex > 0) {
             dispatch ({
                 type: 'SET_INDEX',
                 index: 0,

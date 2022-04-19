@@ -13,7 +13,7 @@ export default function Question() {
   //retrieve data from store
   const [questions, setQuestions] = useState([])
   const [settings, setSettings] = useState([])
-  const [selected, setSelected] = useState(false)
+  const [answerSelected, setAnswerSelected] = useState(false)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   
   const score = useSelector(state => state.score)
@@ -52,7 +52,7 @@ export default function Question() {
     }, [question])
 
     const handleSelection = (e) => {
-      setSelected(true)
+      setAnswerSelected(true)
       setSelectedAnswer(e.target.textContent)
       
       if (e.target.textContent === answer) {
@@ -61,20 +61,20 @@ export default function Question() {
           score: score + 1,
         })
       }
-      if (index + 1 <= questions.length) {
+      if (questionIndex + 1 <= questions.length) {
         setTimeout(() => {
-          setSelected(false)
+          setAnswerSelected(false)
           setSelectedAnswer(null)
           dispatch({
             type: 'SET_INDEX',
-            index: index + 1,
+            index: questionIndex + 1,
           })
         }, 2500)
       }
     }
 
     const getClass = option => {
-      if (!selected) {
+      if (!answerSelected) {
         return ``;
       }
   
@@ -93,7 +93,7 @@ export default function Question() {
   
       return (
       <div>
-        <p>Question {index + 1}</p>
+        <p>Question {questionIndex + 1}</p>
         <h3>{question.question}</h3>
         <ul>
           {settings.map((setting, i) => (
