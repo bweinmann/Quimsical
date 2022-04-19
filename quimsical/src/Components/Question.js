@@ -3,9 +3,9 @@ import { useState, useEffect, } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 const decoded = function (html) {
-  const content = document.createElement('content')
-  content.innerHTML = html
-  return content.value
+  const txt = document.createElement('textarea')
+  txt.innerHTML = html
+  return txt.value
 }
 
 export default function Question() {
@@ -16,8 +16,8 @@ export default function Question() {
   const [answerSelected, setAnswerSelected] = useState(false)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   
-  const score = useSelector(state => state.score)
-  const encoded = useSelector(state => state.questions)
+  const score = useSelector((state) => state.score)
+  const encoded = useSelector((state) => state.questions)
 
   useEffect(() => {
   const decodedQuestions = encoded.map(q => {
@@ -31,10 +31,10 @@ export default function Question() {
   setQuestions(decodedQuestions)
   }, [encoded])
 
-  const index = useSelector(state => state.index)
+  const questionIndex = useSelector((state) => state.index)
   const dispatch = useDispatch()
 
-  const question = questions[index]
+  const question = questions[questionIndex]
   const answer = question && question.correct_answer
 
   const getNum = max => {
@@ -51,11 +51,11 @@ export default function Question() {
     setSettings(answers)
     }, [question])
 
-    const handleSelection = (e) => {
+    const handleSelection = (event) => {
       setAnswerSelected(true)
-      setSelectedAnswer(e.target.textContent)
+      setSelectedAnswer(event.target.textContent)
       
-      if (e.target.textContent === answer) {
+      if (event.target.textContent === answer) {
         dispatch({
           type: 'SET_SCORE',
           score: score + 1,
@@ -73,16 +73,16 @@ export default function Question() {
       }
     }
 
-    const getClass = option => {
+    const getClass = setting => {
       if (!answerSelected) {
         return ``;
       }
   
-      if (option === answer) {
+      if (setting === answer) {
         return `correct`
       }
   
-      if (option === selectedAnswer) {
+      if (setting === selectedAnswer) {
         return `selected`
       }
     }

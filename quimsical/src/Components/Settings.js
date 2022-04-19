@@ -7,10 +7,10 @@ import Fetch from './Fetch'
     const [settings, setSettings] = useState(null);
     //replaced with selector for redux actions
     const loading = useSelector(state => state.settings.loading);
-    const category = useSelector(state => state.settings.question_category);
-    const difficulty = useSelector(state => state.settings.question_difficulty);
-    const type = useSelector(state => state.settings.question_type)
-    const amount = useSelector(state => state.settings.question_amount);
+    const questionCategory = useSelector(state => state.settings.question_category);
+    const questionDifficulty = useSelector(state => state.settings.question_difficulty);
+    const questionType = useSelector(state => state.settings.question_type)
+    const questionAmount = useSelector(state => state.settings.question_amount);
 
     //updates state
     const dispatch = useDispatch();
@@ -29,51 +29,53 @@ import Fetch from './Fetch'
 
         fetch(apiURL)
             .then((res) => res.json())
-            .then((res) => {
+            .then((response) => {
                 handleLoading(false);
-                setSettings(res.trivia_categories);
+                setSettings(response.trivia_categories);
+                // console.log(response.trivia_categories);
             });
     }, [setSettings, dispatch]);
 
     //when the category is chosen, event occurs
     //type of action is defined within the payload object due to switch function interpretation
-    const handleCategory = e => {
+    const handleCategory = (event) => {
         dispatch({
             type: 'CHANGE_CATEGORY',
-            question_category: e.target.value,
+            question_category: event.target.value,
           })
         }
     
-    const handleType = e => {
+    const handleType = (event) => {
         dispatch({
             type: 'CHANGE_TYPE',
-            question_type: e.target.value,
+            question_type: event.target.value,
           })
         }
     
-    const handleDifficulty = e => {
+    const handleDifficulty = (event) => {
         dispatch({
             type: 'CHANGE_DIFFICULTY',
-            question_difficulty: e.target.value,
+            question_difficulty: event.target.value,
           })
         }
     
-    const handleAmount = e => {
+    const handleAmount = (event) => {
         dispatch({
             type: 'CHANGE_AMOUNT',
-            question_amount: e.target.value,
+            question_amount: event.target.value,
           })
         }
     
-     if(!loading) {  return (
+     if(!loading) {  
+        return (
         <div>
-            <h1>JeAPIrdy</h1>
+            <h1>Quimsical</h1>
             <div>
                 <h2>Choose a Category:</h2>
-                    <select value={category} onChange={handleCategory}>
+                    <select value={questionCategory} onChange={handleCategory}>
                         <option>All</option>
                         {settings && settings.map((setting) => (
-                            <option value={setting} key={setting.id}>
+                            <option value={setting.id} key={setting.id}>
                                 {setting.name}
                             </option>
                     ))}
@@ -81,7 +83,7 @@ import Fetch from './Fetch'
             </div>
             <div>
                 <h2>Choose a Difficulty:</h2>
-                    <select value={difficulty} onChange={handleDifficulty}>
+                    <select value={questionDifficulty} onChange={handleDifficulty}>
                         <option value="" key="difficulty-0">All</option>
                         <option value="easy" key="difficulty-1">Easy</option>
                         <option value="medium" key="difficulty-2">Medium</option>
@@ -90,7 +92,7 @@ import Fetch from './Fetch'
             </div>
             <div>
                 <h2>Select Question Type:</h2>
-                    <select value={type} onChange={handleType}>
+                    <select value={questionType} onChange={handleType}>
                         <option value="" key="type-0">All</option>
                         <option value="multiple" key="type-1">Multiple Choice</option>
                         <option value="boolean" key="type-2">True/False</option>
@@ -98,13 +100,13 @@ import Fetch from './Fetch'
             </div>
 			<div>
                 <h2>Number of Questions:</h2>
-                    <input value={amount} onChange={handleAmount} />
+                    <input value={questionAmount} onChange={handleAmount} />
             </div>
             <Fetch text="Begin!" />
         </div>      
         );
      } 
         <p>Loading...</p>
-}                   
+}              
 
 export default Settings

@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function Fetch(props) {
 
     //construct settings for the API query
-    const difficulty = useSelector(state => state.settings.question_difficulty)
-    const category = useSelector(state => state.settings.question_category)
-    const amount = useSelector(state => state.settings.question_amount)
-    const type = useSelector(state => state.settings.question_type)
+    const questionDifficulty = useSelector(state => state.settings.question_difficulty)
+    const questionCategory = useSelector(state => state.settings.question_category)
+    const questionAmount = useSelector(state => state.settings.question_amount)
+    const questionType = useSelector(state => state.settings.question_type)
     const questionIndex = useSelector(state => state.index)
 
     const dispatch = useDispatch();
@@ -19,27 +19,27 @@ export default function Fetch(props) {
         })
     }
 
-    const setQuestions = value => {
+    const setQuestions = (value) => {
         dispatch({
             type:'SET_QUESTIONS',
-            questions: value
+            questions: value,
         })
     }
 
     const handleRequest = async () => {
 
-        let apiURL = `https://opentdb.com/api.php?amount=${amount}`;
+        let apiURL = `https://opentdb.com/api.php?amount=${questionAmount}`;
 
-        if (category.length) {
-            apiURL = apiURL.concat(`&category=${category}`)
+        if (questionCategory.length) {
+            apiURL = apiURL.concat(`&category=${questionCategory}`)
         }
-        if (difficulty.length) {
-            apiURL = apiURL.concat(`&difficulty=${difficulty}`)
+        if (questionDifficulty.length) {
+            apiURL = apiURL.concat(`&difficulty=${questionDifficulty}`)
         }
-        if (type.length) {
-            apiURL = apiURL.concat(`&type=${type}`)
+        if (questionType.length) {
+            apiURL = apiURL.concat(`&type=${questionType}`)
         }
-
+        console.log(apiURL.concat(`&category=${questionCategory}`));
         setLoading(true)
 
         await fetch(apiURL)

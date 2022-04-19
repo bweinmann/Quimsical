@@ -7,11 +7,11 @@ import './App.css';
 function App() {
 
   const questions = useSelector((state) => state.questions)
-  const index = useSelector((state) => state.index)
+  const questionIndex = useSelector((state) => state.index)
 
   let component
 
-  if (questions.length && index + 1 <= questions.length) {
+  if (questions.length && questionIndex + 1 <= questions.length) {
     component = <Question />
   } else if (!questions.length) {
     component = <Settings />
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
+      <div className="app-container">
         {component}
       </div>
     </div>

@@ -51,7 +51,7 @@ export default function Reducer (state = initState, action) {
                   ...state,
                   settings: {
                     ...state.settings,
-                    question_number: action.question_amount
+                    question_amount: action.question_amount
                   }
                 }
 
