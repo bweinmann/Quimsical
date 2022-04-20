@@ -1,6 +1,7 @@
 import Settings from './Components/Settings'
 import Question from './Components/Question'
 import Results from './Components/Results'
+import Footer from './Components/Footer'
 import { useSelector } from 'react-redux'
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
       <div className="app-container">
         {component}
       </div>
+      <Footer />
     </div>
   );
 }

@@ -64,12 +64,12 @@ export default function Reducer (state = initState, action) {
                 case 'SET_INDEX':
                     return {
                         ...state,
-                        questions: action.index,
+                        index: action.index,
                     }
                 case 'SET_SCORE':
                     return {
                         ...state,
-                        questions: action.score,
+                        score: action.score,
                     }
 
               default:

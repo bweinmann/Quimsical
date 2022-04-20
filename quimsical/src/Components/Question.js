@@ -37,7 +37,7 @@ export default function Question() {
   const question = questions[questionIndex]
   const answer = question && question.correct_answer
 
-  const getNum = max => {
+  const getNum = (max) => {
     return Math.floor(Math.random()*Math.floor(max));
   }
 
